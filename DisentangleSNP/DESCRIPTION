@@ -1,9 +1,0 @@
-Package: DisentangleSNP
-Type: Package
-Title: DisentangleSNP Package
-Version: 1.0
-Date: 2017-09-29
-Author: Annie Thwing
-Maintainer: Annie Thwing <anniethwing@ucdenver.edu>
-Description: More about what it does (maybe more than one line)
-License: GPL-3
