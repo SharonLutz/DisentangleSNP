@@ -1869,14 +1869,18 @@ function(dataS,yvar="y",avar="x",mvar="m",cvar='',a0=0,a1=1,m=0,nc=0,yreg="linea
     if((mreg=="linear" & int==FALSE )|(yreg=="linear" & mreg=="logistic" & int==FALSE & cvar[1]=='')){
       rownames(x5) <- c("cde=nde","nie","total effect")
     }
-    if(int==TRUE){
-      if(mreg=="linear"){
-        x5[c("pnde","tnde","total effect"),] <- 0
-      }
-      if(mreg=="logistic"){
-        x5[c("pnde","pnie","tnde","tnie","total effect"),] <- 0
+    
+    if(cvar!=""){
+      if(int==TRUE & yreg!="linear"){
+        if(mreg=="linear"){
+          x5[c("pnde","tnde","total effect"),] <- NA
+        }
+        if(mreg=="logistic"){
+          x5[c("pnde","pnie","tnde","tnie","total effect"),] <- NA
+        }
       }
     }
+
     x5 <- as.data.frame(x5)
     x5$Effect <- NULL
     return(x5)
