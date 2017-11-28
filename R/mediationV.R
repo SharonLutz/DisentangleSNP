@@ -1,8 +1,8 @@
 mediationV <-
 function(dataS,yvar="y",avar="x",mvar="m",cvar='',a0=0,a1=1,m=0,nc=0,yreg="linear",mreg="linear",
-           int=FALSE,casecontrol=FALSE,output="full",c='',boot=TRUE){
+           int=FALSE,casecontrol=FALSE,output="full",c='',boot=TRUE,alpha_level=0.05){
     numboot = 1000
-    alphalev = .05
+    alphalev = alpha_level
     dataS = as.data.frame(dataS)
     na.matrix <- NULL
     # Data House Keeping
@@ -1862,7 +1862,11 @@ function(dataS,yvar="y",avar="x",mvar="m",cvar='',a0=0,a1=1,m=0,nc=0,yreg="linea
     if (ncol(x5)==5){
       x5 <- cbind(x5,pvalue)
     }
-    colnames(x5) <- c("Effect","Estimate","Standard Error","95% CI lower","95% CI upper","p-value")
+    
+    perc.name.low <- paste((1-alphalev)*100,"% CI lower",sep = "")
+    perc.name.upp <- paste((1-alphalev)*100,"% CI upper",sep = "")
+
+    colnames(x5) <- c("Effect","Estimate","Standard Error",perc.name.low,perc.name.upp,"p-value")
     if((int==TRUE)|(mreg=="logistic" & int==FALSE & cvar[1]!='')|(yreg!="linear" & mreg=="logistic" & int==FALSE)){
       rownames(x5) <- c("cde","pnde","pnie","tnde","tnie","total effect")
     }
